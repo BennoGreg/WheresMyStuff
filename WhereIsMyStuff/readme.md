@@ -9,8 +9,8 @@ A full history of the journeys can be seen on the Dashboard
 Build Instructions
 
 CocoaPods
-   pod 'Mapbox-iOS-SDK', '~> 5.9'                                               
-   pod 'MapboxGeocoder.swift', '~> 0.11'
+   pod 'Mapbox-iOS-SDK', '\~> 5.9'                                               
+   pod 'MapboxGeocoder.swift', '\~> 0.11'
 
 
 Known Issues:
