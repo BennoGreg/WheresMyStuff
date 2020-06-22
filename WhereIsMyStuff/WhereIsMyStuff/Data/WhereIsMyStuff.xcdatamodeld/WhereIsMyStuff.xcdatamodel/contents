@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19F101" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="class">
+        <attribute name="itemID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="itemName" optional="YES" attributeType="String"/>
+        <attribute name="itemType" optional="YES" attributeType="String"/>
+        <relationship name="isAt" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ItemLocation" inverseName="item" inverseEntity="ItemLocation"/>
+    </entity>
+    <entity name="ItemLocation" representedClassName="ItemLocation" syncable="YES" codeGenerationType="class">
+        <attribute name="amount" optional="YES" attributeType="Integer 32" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="entryID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="isSaved" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="remarks" optional="YES" attributeType="String"/>
+        <relationship name="item" maxCount="1" deletionRule="Nullify" destinationEntity="Item" inverseName="isAt" inverseEntity="Item"/>
+        <relationship name="location" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Location" inverseName="contains" inverseEntity="Location"/>
+    </entity>
+    <entity name="Journey" representedClassName="Journey" syncable="YES" codeGenerationType="class">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="endLocation" optional="YES" attributeType="String"/>
+        <attribute name="journeyID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="startLocation" attributeType="String"/>
+    </entity>
+    <entity name="Location" representedClassName="Location" syncable="YES" codeGenerationType="class">
+        <attribute name="city" optional="YES" attributeType="String"/>
+        <attribute name="country" optional="YES" attributeType="String"/>
+        <attribute name="houseNumber" attributeType="Integer 32" usesScalarValueType="YES"/>
+        <attribute name="latitude" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="locationID" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="longitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="street" optional="YES" attributeType="String"/>
+        <attribute name="zipCode" optional="YES" attributeType="Integer 32" usesScalarValueType="YES"/>
+        <relationship name="contains" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ItemLocation" inverseName="location" inverseEntity="ItemLocation"/>
+    </entity>
+    <elements>
+        <element name="Item" positionX="-64.16796875" positionY="189.7109375" width="108.21875" height="103"/>
+        <element name="ItemLocation" positionX="-315.2578125" positionY="61.9609375" width="128" height="133"/>
+        <element name="Location" positionX="-599.84765625" positionY="82.34375" width="128" height="193"/>
+        <element name="Journey" positionX="-306.33203125" positionY="309.875" width="128" height="103"/>
+    </elements>
+</model>
