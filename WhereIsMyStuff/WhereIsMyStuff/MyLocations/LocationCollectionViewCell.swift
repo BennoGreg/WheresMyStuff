@@ -7,10 +7,12 @@
 //
 
 import UIKit
-import Mapbox
+import MapboxMaps
+import MapboxStatic
 
 
-class LocationCollectionViewCell: UICollectionViewCell {
+
+class LocationCollectionViewCell: UICollectionViewCell{
     
     
     @IBOutlet weak var nameLabel: UILabel!
@@ -18,6 +20,10 @@ class LocationCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var mapImage: UIImageView!
     
     @IBOutlet weak var checkMarkLabel: UILabel!
+    
+    var coordinates: CLLocationCoordinate2D?
+    var name: String?
+    
     
     
     
@@ -37,41 +43,57 @@ class LocationCollectionViewCell: UICollectionViewCell {
     }
     
     
+    
+    fileprivate func createView() {
+        if let coordinates = coordinates, let name = name {
+            getImage(coordinates: coordinates) { (image) in
+                DispatchQueue.main.async {
+                    if let image = image{
+                        self.mapImage.image = image
+                        self.nameLabel.font = UIFont(name: "AppleColorEmoji", size: 13)
+                        self.nameLabel.text = name
+                    }
+                }
+            }
+        }
+    }
+    
     func updateView(name: String?, coordinates: CLLocationCoordinate2D){
         
         self.clipsToBounds = true
         self.layer.cornerRadius = 10
+        self.coordinates = coordinates
+        self.name = name
         
-
-        
-        getImage(coordinates: coordinates) { (image) in
-            DispatchQueue.main.async {
-                if let image = image{
-                    self.mapImage.image = image
-                    self.nameLabel.font = UIFont(name: "AppleColorEmoji", size: 13)
-                    self.nameLabel.text = name
-                }
-            }
-        }
+        createView()
         
     }
     
     func getImage(coordinates: CLLocationCoordinate2D, snapShotCompletion: @escaping ((UIImage?) -> Void)){
-        let camera = MGLMapCamera(lookingAtCenter: coordinates, altitude: 100, pitch: 20, heading: 0)
         
-        let options = MGLMapSnapshotOptions(styleURL: MGLStyle.streetsStyleURL, camera: camera, size: self.bounds.size)
+        //let camera = MGLMapCamera(lookingAtCenter: coordinates, altitude: 100, pitch: 20, heading: 0)
         
-        options.zoomLevel = 16
+        //let options = MapSnapshotOptions(styleURL: MGLStyle.streetsStyleURL, camera: camera, size: self.bounds.size)
+
         
-        let snapshotter = MGLMapSnapshotter(options: options)
-        snapshotter.start { (snapshot, error) in
-            if let err = error {
-                fatalError(err.localizedDescription)
+        let camera = SnapshotCamera(lookingAtCenter: coordinates, zoomLevel: 16, pitch: 20, heading: 0)
+        let options = SnapshotOptions(styleURL: URL(string: MapStyle.shared.mapStyleUrl)!, camera: camera, size: self.bounds.size)
+        let snapshot = Snapshot(options: options)
+        let task = snapshot.image { image, error in
+            if let image = image {
+                snapShotCompletion(image)
             }
-            snapShotCompletion(snapshot?.image)
+            snapShotCompletion(nil)
         }
+        
+        task.resume()
+
     }
+        
     
-    
-    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        createView()
+    }
 }
+
+

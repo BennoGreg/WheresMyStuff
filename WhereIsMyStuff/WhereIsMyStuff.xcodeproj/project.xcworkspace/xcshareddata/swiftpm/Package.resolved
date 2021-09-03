@@ -47,6 +47,24 @@
         }
       },
       {
+        "package": "MapboxStatic",
+        "repositoryURL": "https://github.com/mapbox/MapboxStatic.swift",
+        "state": {
+          "branch": null,
+          "revision": "886e17c242fe9f573ab6c27871a26c0795400017",
+          "version": "0.12.0"
+        }
+      },
+      {
+        "package": "Polyline",
+        "repositoryURL": "https://github.com/raphaelmor/Polyline.git",
+        "state": {
+          "branch": null,
+          "revision": "36f7b1222aaf8fa741d0d179c12e186998d97f42",
+          "version": "5.0.2"
+        }
+      },
+      {
         "package": "Turf",
         "repositoryURL": "https://github.com/mapbox/turf-swift.git",
         "state": {

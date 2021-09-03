@@ -19,6 +19,9 @@
 		D3084D09248FA5F90048A35F /* TextViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3084D07248FA5F90048A35F /* TextViewTableViewCell.swift */; };
 		D3084D0A248FA5F90048A35F /* TextViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3084D08248FA5F90048A35F /* TextViewTableViewCell.xib */; };
 		D3084D0D248FE1F60048A35F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3084D0C248FE1F60048A35F /* Extensions.swift */; };
+		D30D4ADB26DE89F3009EED35 /* MapboxStatic in Frameworks */ = {isa = PBXBuildFile; productRef = D30D4ADA26DE89F3009EED35 /* MapboxStatic */; };
+		D30D4ADD26DE8E1A009EED35 /* GlobalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30D4ADC26DE8E1A009EED35 /* GlobalData.swift */; };
+		D30D4AE026DFB72E009EED35 /* LocationKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30D4ADF26DFB72E009EED35 /* LocationKeys.swift */; };
 		D331807A2472E622000DBB8C /* Dashboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D33180792472E622000DBB8C /* Dashboard.storyboard */; };
 		D331807D2472E67F000DBB8C /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D331807C2472E67F000DBB8C /* DashboardViewController.swift */; };
 		D33180802472EB37000DBB8C /* MyLocationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D331807F2472EB37000DBB8C /* MyLocationsViewController.swift */; };
@@ -85,6 +88,8 @@
 		D3084D07248FA5F90048A35F /* TextViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewTableViewCell.swift; sourceTree = "<group>"; };
 		D3084D08248FA5F90048A35F /* TextViewTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextViewTableViewCell.xib; sourceTree = "<group>"; };
 		D3084D0C248FE1F60048A35F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		D30D4ADC26DE8E1A009EED35 /* GlobalData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalData.swift; sourceTree = "<group>"; };
+		D30D4ADF26DFB72E009EED35 /* LocationKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationKeys.swift; sourceTree = "<group>"; };
 		D33180792472E622000DBB8C /* Dashboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Dashboard.storyboard; sourceTree = "<group>"; };
 		D331807C2472E67F000DBB8C /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 		D331807F2472EB37000DBB8C /* MyLocationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyLocationsViewController.swift; sourceTree = "<group>"; };
@@ -130,6 +135,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D30D4ADB26DE89F3009EED35 /* MapboxStatic in Frameworks */,
 				D3BDCADE26DD11AB00287B43 /* MapboxMaps in Frameworks */,
 				D3BDCAE126DD135200287B43 /* MapboxGeocoder in Frameworks */,
 			);
@@ -184,6 +190,14 @@
 				D3084D0C248FE1F60048A35F /* Extensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		D30D4ADE26DFB665009EED35 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				D30D4ADF26DFB72E009EED35 /* LocationKeys.swift */,
+			);
+			path = Enums;
 			sourceTree = "<group>";
 		};
 		D331807B2472E664000DBB8C /* Dashboard */ = {
@@ -263,6 +277,7 @@
 		D3CA694B2472E3E7005F00FC /* WhereIsMyStuff */ = {
 			isa = PBXGroup;
 			children = (
+				D30D4ADE26DFB665009EED35 /* Enums */,
 				D3084D0B248FE1EA0048A35F /* Extensions */,
 				D39738D92489958100D8C91A /* NewSuitcase */,
 				D356E19F2482880900275445 /* Items */,
@@ -278,6 +293,7 @@
 				D3D9DE43249B4FAD00363D75 /* clothing.png */,
 				D3CA695A2472E3E8005F00FC /* LaunchScreen.storyboard */,
 				D3CA695D2472E3E8005F00FC /* Info.plist */,
+				D30D4ADC26DE8E1A009EED35 /* GlobalData.swift */,
 			);
 			path = WhereIsMyStuff;
 			sourceTree = "<group>";
@@ -331,6 +347,7 @@
 			packageProductDependencies = (
 				D3BDCADD26DD11AB00287B43 /* MapboxMaps */,
 				D3BDCAE026DD135200287B43 /* MapboxGeocoder */,
+				D30D4ADA26DE89F3009EED35 /* MapboxStatic */,
 			);
 			productName = WhereIsMyStuff;
 			productReference = D3CA69492472E3E7005F00FC /* WhereIsMyStuff.app */;
@@ -407,6 +424,7 @@
 			packageReferences = (
 				D3BDCADC26DD11AB00287B43 /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */,
 				D3BDCADF26DD135200287B43 /* XCRemoteSwiftPackageReference "MapboxGeocoder" */,
+				D30D4AD926DE89F3009EED35 /* XCRemoteSwiftPackageReference "MapboxStatic" */,
 			);
 			productRefGroup = D3CA694A2472E3E7005F00FC /* Products */;
 			projectDirPath = "";
@@ -480,6 +498,7 @@
 				D3CA69512472E3E7005F00FC /* ViewController.swift in Sources */,
 				D34DFF4224751438008D3916 /* AdressSearchController.swift in Sources */,
 				D33180872472EFB6000DBB8C /* NewLocationViewController.swift in Sources */,
+				D30D4AE026DFB72E009EED35 /* LocationKeys.swift in Sources */,
 				D3084CFC248F71150048A35F /* PickerTableViewCell.swift in Sources */,
 				D344497B249F63E600BDB8EA /* JourneyClass.swift in Sources */,
 				D3084D09248FA5F90048A35F /* TextViewTableViewCell.swift in Sources */,
@@ -487,6 +506,7 @@
 				D33180802472EB37000DBB8C /* MyLocationsViewController.swift in Sources */,
 				D3084D0D248FE1F60048A35F /* Extensions.swift in Sources */,
 				D39738E52489A1BE00D8C91A /* MyItemsViewController.swift in Sources */,
+				D30D4ADD26DE8E1A009EED35 /* GlobalData.swift in Sources */,
 				D3059D93248ED2CD00D1D061 /* ItemLocationTableViewCell.swift in Sources */,
 				D3CA694D2472E3E7005F00FC /* AppDelegate.swift in Sources */,
 				D3CA694F2472E3E7005F00FC /* SceneDelegate.swift in Sources */,
@@ -824,6 +844,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		D30D4AD926DE89F3009EED35 /* XCRemoteSwiftPackageReference "MapboxStatic" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mapbox/MapboxStatic.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.12.0;
+			};
+		};
 		D3BDCADC26DD11AB00287B43 /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/mapbox/mapbox-maps-ios.git";
@@ -843,6 +871,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		D30D4ADA26DE89F3009EED35 /* MapboxStatic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D30D4AD926DE89F3009EED35 /* XCRemoteSwiftPackageReference "MapboxStatic" */;
+			productName = MapboxStatic;
+		};
 		D3BDCADD26DD11AB00287B43 /* MapboxMaps */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D3BDCADC26DD11AB00287B43 /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */;

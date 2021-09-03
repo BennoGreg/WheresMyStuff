@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Mapbox
+import MapboxMaps
 
 extension UIViewController{
     
@@ -22,6 +22,14 @@ extension UIViewController{
     }
 }
 
+extension MapView {
+    
+    func hideKeyboardWhenTappedAround(tap: UITapGestureRecognizer){
+        
+        tap.cancelsTouchesInView = false
+        self.addGestureRecognizer(tap)
+    }
+}
 
 
 extension UICollectionView {

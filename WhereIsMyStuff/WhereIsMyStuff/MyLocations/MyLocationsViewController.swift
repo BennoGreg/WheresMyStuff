@@ -107,6 +107,8 @@ class MyLocationsViewController: UIViewController, UICollectionViewDataSource, U
             removeButton.isEnabled = false
         }
     }
+    
+    
 
    
     /*
