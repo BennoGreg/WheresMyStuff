@@ -35,6 +35,9 @@
 		D34DFF4224751438008D3916 /* AdressSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34DFF4124751438008D3916 /* AdressSearchController.swift */; };
 		D356E1A524828B6000275445 /* ItemLocationClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D356E1A424828B6000275445 /* ItemLocationClass.swift */; };
 		D37D85102490D5D200BAA810 /* AddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37D850F2490D5D200BAA810 /* AddItemViewController.swift */; };
+		D3939B7326F8D29400B3B23F /* ItemsHostingViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3939B7226F8D29400B3B23F /* ItemsHostingViewController.storyboard */; };
+		D3939B7526F8D3E600B3B23F /* ItemsHostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3939B7426F8D3E600B3B23F /* ItemsHostingViewController.swift */; };
+		D3939B7926F8D42500B3B23F /* ItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3939B7826F8D42500B3B23F /* ItemsView.swift */; };
 		D39738D72489874900D8C91A /* DashBoardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39738D62489874900D8C91A /* DashBoardCollectionViewCell.swift */; };
 		D39738DB2489959700D8C91A /* NewSuitcase.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D39738DA2489959700D8C91A /* NewSuitcase.storyboard */; };
 		D39738DD248995D000D8C91A /* NewSuitcaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39738DC248995D000D8C91A /* NewSuitcaseViewController.swift */; };
@@ -103,6 +106,9 @@
 		D34DFF4124751438008D3916 /* AdressSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdressSearchController.swift; sourceTree = "<group>"; };
 		D356E1A424828B6000275445 /* ItemLocationClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemLocationClass.swift; sourceTree = "<group>"; };
 		D37D850F2490D5D200BAA810 /* AddItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemViewController.swift; sourceTree = "<group>"; };
+		D3939B7226F8D29400B3B23F /* ItemsHostingViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ItemsHostingViewController.storyboard; sourceTree = "<group>"; };
+		D3939B7426F8D3E600B3B23F /* ItemsHostingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsHostingViewController.swift; sourceTree = "<group>"; };
+		D3939B7826F8D42500B3B23F /* ItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsView.swift; sourceTree = "<group>"; };
 		D39738D62489874900D8C91A /* DashBoardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashBoardCollectionViewCell.swift; sourceTree = "<group>"; };
 		D39738DA2489959700D8C91A /* NewSuitcase.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NewSuitcase.storyboard; sourceTree = "<group>"; };
 		D39738DC248995D000D8C91A /* NewSuitcaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSuitcaseViewController.swift; sourceTree = "<group>"; };
@@ -245,6 +251,9 @@
 		D3939B7126F8CCB000B3B23F /* ItemsSwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				D3939B7226F8D29400B3B23F /* ItemsHostingViewController.storyboard */,
+				D3939B7426F8D3E600B3B23F /* ItemsHostingViewController.swift */,
+				D3939B7826F8D42500B3B23F /* ItemsView.swift */,
 			);
 			path = ItemsSwiftUI;
 			sourceTree = "<group>";
@@ -457,6 +466,7 @@
 				D3084D0A248FA5F90048A35F /* TextViewTableViewCell.xib in Resources */,
 				D39738DB2489959700D8C91A /* NewSuitcase.storyboard in Resources */,
 				D3CA69542472E3E7005F00FC /* Main.storyboard in Resources */,
+				D3939B7326F8D29400B3B23F /* ItemsHostingViewController.storyboard in Resources */,
 				D3D9DE44249B4FAD00363D75 /* clothing.png in Resources */,
 				D3059D98248ED67D00D1D061 /* AddItemLocation.storyboard in Resources */,
 				D3084D05248F97D10048A35F /* TextFieldTableViewCell.xib in Resources */,
@@ -495,6 +505,7 @@
 				D333D95D24810806006C725D /* ItemClass.swift in Sources */,
 				D37D85102490D5D200BAA810 /* AddItemViewController.swift in Sources */,
 				D3F907992497C0F10061B522 /* SuitcaseHeaderView.swift in Sources */,
+				D3939B7926F8D42500B3B23F /* ItemsView.swift in Sources */,
 				D33EE739247EB7F90032C6EA /* LocationCollectionViewCell.swift in Sources */,
 				D344497D249F8EAF00BDB8EA /* DashboardHeaderView.swift in Sources */,
 				D356E1A524828B6000275445 /* ItemLocationClass.swift in Sources */,
@@ -510,6 +521,7 @@
 				D3084CFC248F71150048A35F /* PickerTableViewCell.swift in Sources */,
 				D344497B249F63E600BDB8EA /* JourneyClass.swift in Sources */,
 				D3084D09248FA5F90048A35F /* TextViewTableViewCell.swift in Sources */,
+				D3939B7526F8D3E600B3B23F /* ItemsHostingViewController.swift in Sources */,
 				D331807D2472E67F000DBB8C /* DashboardViewController.swift in Sources */,
 				D33180802472EB37000DBB8C /* MyLocationsViewController.swift in Sources */,
 				D3084D0D248FE1F60048A35F /* Extensions.swift in Sources */,
