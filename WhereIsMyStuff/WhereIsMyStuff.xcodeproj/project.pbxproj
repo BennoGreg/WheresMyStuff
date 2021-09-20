@@ -242,6 +242,13 @@
 			path = Items;
 			sourceTree = "<group>";
 		};
+		D3939B7126F8CCB000B3B23F /* ItemsSwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ItemsSwiftUI;
+			sourceTree = "<group>";
+		};
 		D39738D92489958100D8C91A /* NewSuitcase */ = {
 			isa = PBXGroup;
 			children = (
@@ -277,6 +284,7 @@
 		D3CA694B2472E3E7005F00FC /* WhereIsMyStuff */ = {
 			isa = PBXGroup;
 			children = (
+				D3939B7126F8CCB000B3B23F /* ItemsSwiftUI */,
 				D30D4ADE26DFB665009EED35 /* Enums */,
 				D3084D0B248FE1EA0048A35F /* Extensions */,
 				D39738D92489958100D8C91A /* NewSuitcase */,
