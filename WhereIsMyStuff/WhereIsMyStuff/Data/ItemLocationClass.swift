@@ -236,6 +236,6 @@ class ItemLocationClass: ObservableObject{
     
 }
 
-extension ItemLocation: Identifiable{
-    
-}
+//extension ItemLocation: Identifiable{
+//    
+//}

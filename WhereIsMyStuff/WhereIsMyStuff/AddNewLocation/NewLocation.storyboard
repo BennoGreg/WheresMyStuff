@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="M1t-aD-eUz">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="M1t-aD-eUz">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -15,15 +17,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eg8-oC-dcR" customClass="MGLMapView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eg8-oC-dcR">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <searchBar contentMode="redraw" text="" placeholder="Search for your City" translatesAutoresizingMaskIntoConstraints="NO" id="BGT-ry-Pup">
-                                        <rect key="frame" x="0.0" y="44" width="414" height="56"/>
+                                        <rect key="frame" x="0.0" y="44" width="414" height="51"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZzW-sM-IHJ">
-                                        <rect key="frame" x="364" y="100" width="50" height="50"/>
+                                        <rect key="frame" x="364" y="95" width="50" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="Jm8-8b-IKX"/>
                                             <constraint firstAttribute="height" constant="50" id="Mnb-nX-iVC"/>
@@ -34,7 +36,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="ZzW-sM-IHJ" firstAttribute="top" secondItem="BGT-ry-Pup" secondAttribute="bottom" id="4Y8-0p-KyF"/>
                                     <constraint firstItem="BGT-ry-Pup" firstAttribute="leading" secondItem="eg8-oC-dcR" secondAttribute="leading" id="8cv-3r-uZu"/>
@@ -44,18 +46,18 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="qEb-KR-9zG"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="eg8-oC-dcR" firstAttribute="leading" secondItem="qEb-KR-9zG" secondAttribute="leading" id="P0D-3e-wFA"/>
                             <constraint firstItem="qEb-KR-9zG" firstAttribute="trailing" secondItem="eg8-oC-dcR" secondAttribute="trailing" id="oA6-7H-mtF"/>
                             <constraint firstItem="eg8-oC-dcR" firstAttribute="top" secondItem="iWr-xN-P0j" secondAttribute="top" id="yoL-JN-zFa"/>
                             <constraint firstAttribute="bottom" secondItem="eg8-oC-dcR" secondAttribute="bottom" id="yxU-5x-uvg"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="qEb-KR-9zG"/>
                     </view>
                     <connections>
-                        <outlet property="addLocationMap" destination="eg8-oC-dcR" id="erC-EI-VuK"/>
                         <outlet property="locateButton" destination="ZzW-sM-IHJ" id="4TX-SB-Fjf"/>
+                        <outlet property="parentView" destination="eg8-oC-dcR" id="yWG-In-RSX"/>
                         <outlet property="searchBar" destination="BGT-ry-Pup" id="Tq1-J2-pjV"/>
                     </connections>
                 </viewController>
@@ -65,6 +67,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="location.fill" catalog="system" width="128" height="115"/>
+        <image name="location.fill" catalog="system" width="128" height="121"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

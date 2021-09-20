@@ -7,12 +7,14 @@
 //
 
 import UIKit
-import Mapbox
+import CoreLocation
+import MapboxMaps
 import MapboxGeocoder
+import Contacts
 
 
 
-class NewLocationViewController: UIViewController, MGLMapViewDelegate, UISearchBarDelegate, CLLocationManagerDelegate{
+class NewLocationViewController: UIViewController, UISearchBarDelegate, CLLocationManagerDelegate{
     
     
     let geocoder = Geocoder.shared
@@ -24,18 +26,33 @@ class NewLocationViewController: UIViewController, MGLMapViewDelegate, UISearchB
     
     var homeStatic = CLLocationCoordinate2D(latitude: 48.523189, longitude: 13.944133)
     var locationManager = CLLocationManager()
+    internal lazy var annotationManager: PointAnnotationManager = {
+        return addLocationMap.annotations.makePointAnnotationManager()
+    }()
     
     var initialStart = true
     
     let locationClass = LocationClass.locations
+    var style: StyleURI {
+        get {
+            if let style = StyleURI(rawValue: MapStyle.shared.mapStyleUrl) {
+                return style
+            }
+            return .light
+        }
+    }
     
     
+    
+    @IBOutlet weak var parentView: UIView!
     @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet weak var addLocationMap: MGLMapView!
     @IBOutlet weak var locateButton: UIButton!
+    
     
     var location = CLLocationCoordinate2D()
     var placemark: GeocodedPlacemark?
+    var addLocationMap: MapView!
+    var eventCancelable: Cancelable?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,30 +67,43 @@ class NewLocationViewController: UIViewController, MGLMapViewDelegate, UISearchB
         // For use in foreground
         self.locationManager.requestWhenInUseAuthorization()
 
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-            locationManager.startUpdatingLocation()
-        }
-        
-        
+        let addLocationButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(NewLocationViewController.saveLocation(sender:)))
+        self.navigationItem.rightBarButtonItem = addLocationButton
+        self.navigationItem.rightBarButtonItem?.isEnabled = false
         searchBar.delegate = self
         
         
+        addLocationMap = MapView(frame: parentView.bounds)
+        
+    
         self.addLocationMap.autoresizingMask=[.flexibleWidth,.flexibleHeight]
         
+        addLocationMap.mapboxMap.loadStyleURI(style) {[weak self] result in
+            guard let strongself = self else {return}
+            switch result {
+            case .success(_):
+                print("Map loaded style")
+                if CLLocationManager.locationServicesEnabled() {
+                    strongself.locationManager.delegate = self
+                    strongself.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+                    strongself.locationManager.startUpdatingLocation()
+                }
+            case let .failure(error):
+                print("An error ocurred \(error)")
+            }
+        }
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(NewLocationViewController.hideKeyboard))
+        addLocationMap.hideKeyboardWhenTappedAround(tap: tap)
         
-        self.addLocationMap.styleURL = MGLStyle.streetsStyleURL
-        self.addLocationMap.isZoomEnabled = true
-        self.addLocationMap.delegate = self
-       
         
-        
-        addLocationMap.showsUserLocation = true
+        //addLocationMap.showsUserLocation = true
         // Do any additional setup after loading the view.
         
         navigationController?.navigationBar.alpha = 0.9
         searchBar.alpha = 0.9
+        parentView.addSubview(addLocationMap)
+        parentView.sendSubviewToBack(addLocationMap)
+        //annotationManager.delegate = self //Bug in MapBox SDK
         
     }
     
@@ -82,11 +112,11 @@ class NewLocationViewController: UIViewController, MGLMapViewDelegate, UISearchB
         addLocationMap.removeFromSuperview()
     }
     
-    func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
-        return true
-    }
+//    func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
+//        return true
+//    }
     
-  
+
     
     func lookUpAdress(searchString: String){
        let options = ForwardGeocodeOptions(query: searchString)
@@ -97,7 +127,7 @@ class NewLocationViewController: UIViewController, MGLMapViewDelegate, UISearchB
 
         var coordinate: CLLocationCoordinate2D?
         
-        let task = geocoder.geocode(options) { (placemarks, attribution, error) -> Void in
+        let task = geocoder.geocode(options) { [self](placemarks, attribution, error) -> Void in
             guard let placemark = placemarks?.first else{
                 return
             }
@@ -123,8 +153,9 @@ class NewLocationViewController: UIViewController, MGLMapViewDelegate, UISearchB
             return
         }
         if initialStart{
-            self.addLocationMap.setCenter(coordinates, animated: true)
-            self.addLocationMap.zoomLevel = 17
+            self.addLocationMap.location.options.puckType = .puck2D()
+            self.addLocationMap.mapboxMap.setCamera(to: CameraOptions(center: coordinates, zoom: 17))
+            //self.addLocationMap.zoomLevel = 17
             initialStart = true
         }
         
@@ -141,18 +172,23 @@ class NewLocationViewController: UIViewController, MGLMapViewDelegate, UISearchB
     
     
     func addAnnotation(coordinate: CLLocationCoordinate2D, adress: String?, postalAdress: CNPostalAddress){
-        let annotation = MGLPointAnnotation()
-        annotation.coordinate = coordinate
-        annotation.title = "\(postalAdress.street) \(adress ?? "")"
-        annotation.subtitle = "\(postalAdress.city) \(postalAdress.postalCode), \(postalAdress.country)"
-        if let annotations = self.addLocationMap.annotations{
-            self.addLocationMap.removeAnnotations(annotations)
-            
-        }
+        var annotation = PointAnnotation.init(coordinate: coordinate)
+        //annotation.textField = "\(postalAdress.street) \(adress ?? "")"
         
-        self.addLocationMap.addAnnotation(annotation)
-        self.addLocationMap.setCenter(coordinate, animated: true)
-        self.addLocationMap.zoomLevel = 17
+        let userInfo = [LocationKey.street.rawValue: postalAdress.street,
+                        LocationKey.number.rawValue: adress ?? "",
+                        LocationKey.zipCode.rawValue: postalAdress.postalCode,
+                        LocationKey.country.rawValue: postalAdress.country]
+        
+        annotation.userInfo = userInfo
+
+        //annotation.subtitle = "\(postalAdress.city) \(postalAdress.postalCode), \(postalAdress.country)"
+        annotation.image = .default
+        annotationManager.annotations = [annotation]
+        
+        self.navigationItem.rightBarButtonItem?.isEnabled = true
+        
+        addLocationMap.mapboxMap.setCamera(to: CameraOptions(center: coordinate, zoom: 17))
         
     }
     
@@ -160,8 +196,8 @@ class NewLocationViewController: UIViewController, MGLMapViewDelegate, UISearchB
         guard let coordinate = locationManager.location?.coordinate else{
             return
         }
-        
-        addLocationMap.setCenter(coordinate, animated: true)
+    
+        addLocationMap.mapboxMap.setCamera(to: CameraOptions(center: coordinate, zoom: 17))
         var resultPlacemark: Placemark?
         getPlacemark(of: coordinate) { (placemark, error) in
             resultPlacemark = placemark
@@ -186,15 +222,9 @@ class NewLocationViewController: UIViewController, MGLMapViewDelegate, UISearchB
         
     }
     
-    func mapView(_ mapView: MGLMapView, rightCalloutAccessoryViewFor annotation: MGLAnnotation) -> UIView? {
-        return UIButton(type: .contactAdd)
-    }
     
-    func mapView(_ mapView: MGLMapView, annotation: MGLAnnotation, calloutAccessoryControlTapped control: UIControl) {
-        mapView.deselectAnnotation(annotation, animated: false)
-         
-        // Show an alert containing the annotation's details
-        let alert = UIAlertController(title: "Save your location", message: "Enter the name of your Location", preferredStyle: .alert)
+    fileprivate func presentAlert(_ title: String, _ message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
         alert.addTextField { (textfield) in
             textfield.placeholder = "Adresstype"
@@ -215,6 +245,67 @@ class NewLocationViewController: UIViewController, MGLMapViewDelegate, UISearchB
     
     
     
+    @objc func saveLocation(sender: UIBarButtonItem) {
+        guard let userinfo = annotationManager.annotations[0].userInfo else { return }
+        
+        let message = """
+            \(userinfo[LocationKey.street.rawValue] ?? "") \(userinfo[LocationKey.number.rawValue] ?? "")
+            Enter the name of your Location
+            """
+        let title = "Save your location"
+        
+        presentAlert(title, message)
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        addLocationMap.mapboxMap.loadStyleURI(style)
+    }
+    
+    @objc func hideKeyboard() {
+        searchBar.endEditing(true)
+    }
+    
+    /// Function to add Annotation by clicking on annotation (currently not possible due to Bug in MapBox SDK)
+    
+//    func annotationManager(_ manager: AnnotationManager, didDetectTappedAnnotations annotations: [Annotation]) {
+//        print("from Function: \(manager.sourceId)")
+//        print("from self: \(annotationManager.sourceId)")
+//        guard let userinfo = annotationManager.annotations[0].userInfo else { return }
+//
+//        let message = """
+//            \(userinfo[LocationKey.street.rawValue] ?? "") \(userinfo[LocationKey.number.rawValue] ?? "")
+//            Enter the name of your Location
+//            """
+//        let title = "Save your location"
+//
+//        presentAlert(title, message)
+//    }
+    
+//    func mapView(_ mapView: MGLMapView, annotation: MGLAnnotation, calloutAccessoryControlTapped control: UIControl) {
+//        mapView.deselectAnnotation(annotation, animated: false)
+//         
+//        // Show an alert containing the annotation's details
+//        let alert = UIAlertController(title: "Save your location", message: "Enter the name of your Location", preferredStyle: .alert)
+//        
+//        alert.addTextField { (textfield) in
+//            textfield.placeholder = "Adresstype"
+//        }
+//        
+//        alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { (action) in
+//            let postalAddress = self.placemark?.postalAddress
+//            let address = Int(self.placemark?.address ?? "")
+//            self.locationClass.save(coordinates: self.location, name: alert.textFields?[0].text ?? "Home", street: postalAddress?.street, houseNumber: address, city: postalAddress?.city, zipCode: Int(postalAddress?.postalCode ?? "0"), country: postalAddress?.country)
+//            self.tabBarController?.tabBar.isHidden = false
+//            self.navigationController?.popToRootViewController(animated: true)
+//        }))
+//        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+//        
+//        
+//        self.present(alert, animated: true, completion: nil)
+//    }
+    
+    
+    
 
     /*
     // MARK: - Navigation
@@ -227,6 +318,7 @@ class NewLocationViewController: UIViewController, MGLMapViewDelegate, UISearchB
     */
 
 }
+
 
 
 
