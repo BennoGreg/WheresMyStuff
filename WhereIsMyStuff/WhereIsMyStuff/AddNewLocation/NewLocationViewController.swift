@@ -183,7 +183,7 @@ class NewLocationViewController: UIViewController, UISearchBarDelegate, CLLocati
         annotation.userInfo = userInfo
 
         //annotation.subtitle = "\(postalAdress.city) \(postalAdress.postalCode), \(postalAdress.country)"
-        annotation.image = .default
+        annotation.image = .init(image: UIImage(named: "red_pin")!, name: "red_pin")
         annotationManager.annotations = [annotation]
         
         self.navigationItem.rightBarButtonItem?.isEnabled = true
