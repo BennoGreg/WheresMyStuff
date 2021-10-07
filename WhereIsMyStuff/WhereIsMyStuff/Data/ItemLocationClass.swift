@@ -38,6 +38,56 @@ class ItemLocationClass: ObservableObject{
         self.loadSuitcase()
     }
     
+    func loadMockData() ->([[ItemLocation]], [String]) {
+        guard let context = context else {return ([[ItemLocation]](), [String]())}
+        let itemLocationOne = ItemLocation(context: context)
+        let itemOne = Item(context: context)
+        let locationOne = Location(context: context)
+        itemOne.itemName = "MacBook"
+        itemOne.itemType = "IT-Equipment"
+        itemLocationOne.item = itemOne
+        locationOne.street = "Krondorf"
+        locationOne.houseNumber = 30
+        locationOne.name = "Home"
+        itemLocationOne.location = locationOne
+        itemLocationOne.amount = 1
+        
+        let itemLocationTwo = ItemLocation(context: context)
+        let itemTwo = Item(context: context)
+        let locationTwo = Location(context: context)
+        itemTwo.itemName = "iPad"
+        itemTwo.itemType = "IT-Equipment"
+        itemLocationTwo.item = itemTwo
+        locationTwo.street = "Krondorf"
+        locationTwo.houseNumber = 14
+        locationTwo.name = "Oma & Opa"
+        itemLocationTwo.location = locationTwo
+        itemLocationTwo.amount = 1
+        
+        let itemLocationThree = ItemLocation(context: context)
+        let itemThree = Item(context: context)
+        itemThree.itemName = "Zipp 2"
+        itemThree.itemType = "IT-Equipment"
+        itemLocationThree.item = itemThree
+        itemLocationThree.location = locationOne
+        itemLocationThree.amount = 1
+        
+        let itemLocations = [itemLocationOne, itemLocationTwo, itemLocationThree]
+        let locations = [locationOne.name!, locationTwo.name!]
+        var itemLocations2D: [[ItemLocation]] = [[ItemLocation](), [ItemLocation]()]
+        itemLocations.forEach { item in
+            if let name = item.location?.name {
+                if let index = locations.firstIndex(of: name), !itemLocations2D[index].contains(item){
+                    itemLocations2D[index].append(item)
+                }
+            }
+        }
+        
+        
+        return (itemLocations2D, locations)
+    }
+    
+    
     func loadAllItemLocation() ->[ItemLocation]{
         guard let context = context else{
             return [ItemLocation]()

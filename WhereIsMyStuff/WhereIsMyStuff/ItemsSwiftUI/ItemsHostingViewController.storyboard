@@ -1,18 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19115.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="2FS-zy-mVa">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="2FS-zy-mVa">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19107.5"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
     </dependencies>
     <scenes>
-        <!--Items Hosting View Controller-->
+        <!--Items-->
         <scene sceneID="MoV-mQ-bz3">
             <objects>
-                <hostingController id="2FS-zy-mVa" customClass="ItemsHostingViewController" customModule="WhereIsMyStuff" customModuleProvider="target" sceneMemberID="viewController"/>
+                <hostingController id="2FS-zy-mVa" customClass="ItemsHostingViewController" customModule="WhereIsMyStuff" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Items" image="rectangle.3.group" catalog="system" id="nOG-Fc-KMV">
+                        <imageReference key="selectedImage" image="rectangle.3.group.fill" catalog="system" symbolScale="large"/>
+                    </tabBarItem>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                </hostingController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vkT-DI-wQ7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="125" y="-77"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="rectangle.3.group" catalog="system" width="128" height="81"/>
+        <image name="rectangle.3.group.fill" catalog="system" width="128" height="81"/>
+    </resources>
 </document>
